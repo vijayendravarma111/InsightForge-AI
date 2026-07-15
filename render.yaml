@@ -1,12 +1,11 @@
-services:
-  # 1. PostgreSQL Database
-  - type: database
-    name: insightforge-db
+databases:
+  - name: insightforge-db
     databaseName: insightforge
     user: postgres
     plan: free
 
-  # 2. FastAPI Backend
+services:
+  # 1. FastAPI Backend
   - type: web
     name: insightforge-backend
     env: python
@@ -35,7 +34,7 @@ services:
           name: insightforge-db
           property: port
 
-  # 3. React Frontend
+  # 2. React Frontend
   - type: static
     name: insightforge-frontend
     buildCommand: cd frontend && npm install && npm run build
