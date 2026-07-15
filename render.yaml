@@ -1,0 +1,48 @@
+services:
+  # 1. PostgreSQL Database
+  - type: database
+    name: insightforge-db
+    databaseName: insightforge
+    user: postgres
+    plan: free
+
+  # 2. FastAPI Backend
+  - type: web
+    name: insightforge-backend
+    env: python
+    buildCommand: cd backend && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+    envVars:
+      - key: POSTGRES_SERVER
+        fromDatabase:
+          name: insightforge-db
+          property: host
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: insightforge-db
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: insightforge-db
+          property: password
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: insightforge-db
+          property: database
+      - key: POSTGRES_PORT
+        fromDatabase:
+          name: insightforge-db
+          property: port
+
+  # 3. React Frontend
+  - type: static
+    name: insightforge-frontend
+    buildCommand: cd frontend && npm install && npm run build
+    publishDir: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        fromRoute:
+          type: web
+          name: insightforge-backend
+          path: /api

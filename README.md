@@ -1,5 +1,7 @@
 # InsightForge AI - Enterprise Data Warehouse & Analytics Platform
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/vijayendravarma111/InsightForge-AI)
+
 **InsightForge AI** is a production-grade, end-to-end data engineering and predictive analytics platform. It implements a clean, layered architecture designed to ingest raw transactional logs, profile data quality, execute recommendation-driven sanitization, establish a dimensional Star Schema in PostgreSQL, run custom SQL studio analytics, fit three machine learning models, and automatically generate executive PDF reports.
 
 ---
